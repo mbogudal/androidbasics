@@ -12,25 +12,28 @@ public class ResourcesService implements LifeCycle
 {
     public final static String DRAWABLE = "drawable";
     public final static String RAW = "raw";
+    public final static boolean DEF_INSCALED = false;
     private HashMap<String, Bitmap> bitmaps;
     private Context context;
 
-    public ResourcesService(Context context){
+    public ResourcesService(Context context)
+    {
         this.context = context;
         bitmaps = new HashMap<>();
     }
 
     /*loading bitmaps is optimized for drawable resources*/
-    public Bitmap getBitmap(String fileName, boolean inScaled){
+    public Bitmap getBitmap(String fileName)
+    {
         int id;
         Bitmap bitmap;
         BitmapFactory.Options options;
 
-        if(bitmaps.containsKey(fileName)) return bitmaps.get(fileName);
+        if (bitmaps.containsKey(fileName)) return bitmaps.get(fileName);
 
-        id =  context.getResources().getIdentifier(fileName, DRAWABLE, context.getPackageName());
+        id = context.getResources().getIdentifier(fileName, DRAWABLE, context.getPackageName());
         options = new BitmapFactory.Options();
-        options.inScaled = inScaled;
+        options.inScaled = DEF_INSCALED;
         bitmap = BitmapFactory.decodeResource(context.getResources(), id, options);
 
         bitmaps.put(fileName, bitmap);
@@ -38,20 +41,18 @@ public class ResourcesService implements LifeCycle
         return bitmap;
     }
 
-    public Bitmap getBitmap(String fileName, String resType){
+    public Bitmap getBitmap(String fileName, String resType, BitmapFactory.Options options)
+    {
         int id;
         Bitmap bitmap;
-        BitmapFactory.Options options;
-
-        id =  context.getResources().getIdentifier(fileName, resType, context.getPackageName());
-        options = new BitmapFactory.Options();
-        options.inScaled = false;
+        id = context.getResources().getIdentifier(fileName, resType, context.getPackageName());
         bitmap = BitmapFactory.decodeResource(context.getResources(), id, options);
 
         return bitmap;
     }
 
-    public Scanner getScanner(String fileName, String resType){
+    public Scanner getScanner(String fileName, String resType)
+    {
         int id;
         InputStream iStream;
 

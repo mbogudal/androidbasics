@@ -2,6 +2,7 @@ package purplestudio.androidbasics.lib;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
@@ -23,7 +24,7 @@ public class ResourcesTest
     @Test
     public void bitmapDrawable() throws Exception{
 
-        Bitmap bitmap = resourcesService.getBitmap("logo", true);
+        Bitmap bitmap = resourcesService.getBitmap("logo");
 
         if(bitmap == null) throw new Exception("unable to load file");
     }
@@ -31,7 +32,11 @@ public class ResourcesTest
     @Test
     public void bitmap() throws Exception{
 
-        Bitmap bitmap = resourcesService.getBitmap("logo", ResourcesService.RAW);
+        Bitmap bitmap = resourcesService.getBitmap(
+                "logo",
+                ResourcesService.RAW,
+                new BitmapFactory.Options()
+        );
 
         if(bitmap == null) throw new Exception("unable to load file");
     }
@@ -56,13 +61,21 @@ public class ResourcesTest
         String msg;
 
         time1 = System.currentTimeMillis();
-        resourcesService.getBitmap("logo", true);
-        resourcesService.getBitmap("logo", true);
+        resourcesService.getBitmap("logo");
+        resourcesService.getBitmap("logo");
         time1 = System.currentTimeMillis() - time1;
 
         time2 = System.currentTimeMillis();
-        resourcesService.getBitmap("logo", ResourcesService.DRAWABLE);
-        resourcesService.getBitmap("logo", ResourcesService.DRAWABLE);
+        resourcesService.getBitmap(
+                "logo",
+                ResourcesService.DRAWABLE,
+                new BitmapFactory.Options()
+        );
+        resourcesService.getBitmap(
+                "logo",
+                ResourcesService.DRAWABLE,
+                new BitmapFactory.Options()
+        );
         time2 = System.currentTimeMillis() - time2;
 
         if(time1 < time2)
