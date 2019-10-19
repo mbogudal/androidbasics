@@ -30,7 +30,7 @@ public class MainActivity extends PActivity
     public void onResume(){
         super.onResume();
         ImageView logo = findViewById(R.id.logo);
-        logo.setImageBitmap(resourceService.getBitmap("logo"));
+        logo.setImageBitmap(resourceService.getBitmap("logo", true));
     }
 
 }

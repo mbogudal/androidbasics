@@ -21,7 +21,7 @@ public class ResourcesService implements LifeCycle
     }
 
     /*loading bitmaps is optimized for drawable resources*/
-    public Bitmap getBitmap(String fileName){
+    public Bitmap getBitmap(String fileName, boolean inScaled){
         int id;
         Bitmap bitmap;
         BitmapFactory.Options options;
@@ -30,7 +30,7 @@ public class ResourcesService implements LifeCycle
 
         id =  context.getResources().getIdentifier(fileName, DRAWABLE, context.getPackageName());
         options = new BitmapFactory.Options();
-        options.inScaled = false;
+        options.inScaled = inScaled;
         bitmap = BitmapFactory.decodeResource(context.getResources(), id, options);
 
         bitmaps.put(fileName, bitmap);

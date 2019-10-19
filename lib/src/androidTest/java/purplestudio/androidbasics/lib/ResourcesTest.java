@@ -23,7 +23,7 @@ public class ResourcesTest
     @Test
     public void bitmapDrawable() throws Exception{
 
-        Bitmap bitmap = resourcesService.getBitmap("logo");
+        Bitmap bitmap = resourcesService.getBitmap("logo", true);
 
         if(bitmap == null) throw new Exception("unable to load file");
     }
@@ -56,8 +56,8 @@ public class ResourcesTest
         String msg;
 
         time1 = System.currentTimeMillis();
-        resourcesService.getBitmap("logo");
-        resourcesService.getBitmap("logo");
+        resourcesService.getBitmap("logo", true);
+        resourcesService.getBitmap("logo", true);
         time1 = System.currentTimeMillis() - time1;
 
         time2 = System.currentTimeMillis();
